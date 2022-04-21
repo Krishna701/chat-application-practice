@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.practice";
+option java_outer_classname = "ChatApplicationPractice";
+option objc_class_prefix = "HLW";
+
+package com.practice;
+
+service ChatApplicationPracticeService {
+  rpc adminLogin(AdminLoginRequest) returns (AdminLoginResponse){}
+
+}
+message AdminLoginRequest{
+  string admin_user_id = 1;
+  string admin_user_name = 2;
+}
+message AdminLoginResponse{
+  repeated FetchUsers admin_user_list = 2;
+}
+message FetchUsers {
+  string user_id = 1;
+  string user_name = 2;
+}
