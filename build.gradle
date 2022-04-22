@@ -17,6 +17,7 @@ dependencies {
     implementation("io.micronaut.grpc:micronaut-grpc-runtime")
     implementation("io.micronaut.mongodb:micronaut-mongo-sync")
     implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation 'org.projectlombok:lombok:1.18.22'
     runtimeOnly("ch.qos.logback:logback-classic")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mongodb")

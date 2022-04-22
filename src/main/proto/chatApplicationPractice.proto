@@ -9,6 +9,9 @@ package com.practice;
 
 service ChatApplicationPracticeService {
   rpc adminLogin(AdminLoginRequest) returns (AdminLoginResponse){}
+  rpc userLogin(UserLoginRequest) returns (UserLoginResponse) {}
+  rpc join(JoinUserRequest) returns (JoinUserResponse){}
+  rpc getAllUsers(GetAllUserRequest) returns (FetchUserList){}
 
 }
 message AdminLoginRequest{
@@ -21,4 +24,26 @@ message AdminLoginResponse{
 message FetchUsers {
   string user_id = 1;
   string user_name = 2;
+}
+message UserLoginRequest{
+  string user_id = 1;
+  string user_name = 2;
+}
+
+message UserLoginResponse{
+  string user_id = 1;
+  string user_name = 2;
+}
+message JoinUserRequest{
+  string user_name = 1;
+}
+message JoinUserResponse {
+  string user_id = 1;
+  string user_name = 2;
+}
+message GetAllUserRequest{
+  string my_id = 1;
+}
+message FetchUserList{
+  repeated FetchUsers user_list = 1;
 }
