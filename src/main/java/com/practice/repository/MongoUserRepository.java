@@ -66,5 +66,14 @@ public User getUser(String userId){
         return getUser != null;
     }
 
+    @Override
+    public ArrayList<User> getAllUsersExcept(String myId) {
+        User thisUser = getUser(myId);
+        ArrayList<User> users = getCollection().find(User.class).into(new ArrayList<>());
+        users.remove(thisUser); // why are we doing this needs clarifications
+        return users;
+    }
+
+
 
 }

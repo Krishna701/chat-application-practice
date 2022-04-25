@@ -14,4 +14,10 @@ public interface UserRepository {
     String addUser(String userName);
 
     boolean existsUser(User user);
+
+    ArrayList<User> getAllUsersExcept(String myId);
+
+    boolean UpdateUser(String userId, String newUserName);
+
+    boolean DeleteUser(String userId);
 }

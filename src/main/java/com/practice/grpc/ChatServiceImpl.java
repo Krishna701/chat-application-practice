@@ -55,6 +55,47 @@ public class ChatServiceImpl extends ChatApplicationPracticeServiceGrpc.ChatAppl
         responseObserver.onCompleted();
     }
 
+    //getAllUsers will return all the users list except the
+    // self list as it seeks for all the active users for all other connections
+public void getAllUsers(GetAllUserRequest request, StreamObserver<FetchUserList> responseObserver){
+        String myId = request.getMyId();
+        ArrayList<User> userList = usersService.getAllUsersExcept(myId);
+        ArrayList<FetchUsers> output = new ArrayList<>();
+        userList.forEach(user -> {
+            FetchUsers ul = FetchUsers.newBuilder()
+                    .setUserId(user.getUserId())
+                    .setUserName(user.getUserName())
+                    .build();
+            output.add(ul);
+        });
+        FetchUserList.Builder  response = FetchUserList.newBuilder();
+        response.addAllUserList(output).build();
 
+        responseObserver.onNext(response.build());
+        responseObserver.onCompleted();
+    }
 
+public void updateUser(UpdateUserRequest request, StreamObserver<UpdateUserResponse> responseObserver)
+{
+    String userId = request.getUserId();
+    String newUserName = request.getUpdatedUserName();
+    UpdateUserResponse.Builder response = UpdateUserResponse.newBuilder();
+    boolean updateStatus = usersService.updateUser(userId, newUserName);
+    if(updateStatus){
+        response.setUserId(userId).setUpdatedUserName(newUserName);
+    }
+    responseObserver.onNext(response.build());
+    responseObserver.onCompleted();
+}
+
+public void deleteUser(DeleteUserRequest request , StreamObserver<DeleteUserResponse> responseObserver){
+        String userId = request.getUserId();
+        DeleteUserResponse.Builder response = DeleteUserResponse.newBuilder();
+        boolean deleteStatus = usersService.deleteUser(userId);
+        if(deleteStatus){
+            response.setSuccess(true);
+        }
+        responseObserver.onNext(response.build());
+        responseObserver.onCompleted();
+    }
 }
