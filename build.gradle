@@ -12,19 +12,41 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor("io.micronaut.data:micronaut-data-document-processor")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut.data:micronaut-data-mongodb")
     implementation("io.micronaut.grpc:micronaut-grpc-runtime")
+    implementation("io.micronaut.mongodb:micronaut-mongo-reactive")
     implementation("io.micronaut.mongodb:micronaut-mongo-sync")
     implementation("jakarta.annotation:jakarta.annotation-api")
-    implementation 'org.projectlombok:lombok:1.18.22'
     runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("org.mongodb:mongodb-driver-sync")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mongodb")
     testImplementation("org.testcontainers:testcontainers")
     implementation("io.micronaut:micronaut-validation")
 
     testImplementation("io.micronaut:micronaut-http-client")
+
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor('org.projectlombok:lombok:1.18.22')
+
+    implementation 'org.java-websocket:Java-WebSocket:1.5.3'
+    implementation 'javax.websocket:javax.websocket-api:1.1'
+
+
+    implementation("io.micronaut:micronaut-http-server-netty")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-websocket")
+
+    testImplementation("io.micronaut:micronaut-http-client")
+
+    implementation "org.java-websocket:Java-WebSocket:1.5.2"
+    implementation 'javax.websocket:javax.websocket-api:1.1'
+
+    implementation 'com.google.code.gson:gson:2.9.0'
 
 }
 

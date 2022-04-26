@@ -4,16 +4,18 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
 import com.practice.model.User;
+import jakarta.inject.Singleton;
 import org.bson.BsonDocument;
 import org.bson.BsonString;
 import org.bson.BsonValue;
 import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
-import java.util.logging.Filter;
-
+@Singleton
 public class MongoUserRepository implements UserRepository {
     private final MongoClient db;
 
@@ -26,6 +28,8 @@ public class MongoUserRepository implements UserRepository {
     private MongoCollection<User> getCollection(){
         return getDb().getCollection("userCollection", User.class);
 }
+
+@Override
 public User getUser(String userId){
     Bson filter = Filters.eq("user_id",userId);
     return getCollection().find(filter,User.class).first();
@@ -63,7 +67,12 @@ public User getUser(String userId){
         Bson filter2 = Filters.eq("userName", user.getUserName());
         Bson filter = Filters.and(filter1, filter2);
         User getUser = getCollection().find(filter,User.class).first();
-        return getUser != null;
+        if(getUser != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
@@ -74,6 +83,21 @@ public User getUser(String userId){
         return users;
     }
 
+    @Override
+    public boolean UpdateUser(String userId, String newUserName) {
+        Bson updateFilter = Filters.eq("_id", userId);
+        BsonValue value = new BsonString(newUserName);
+        UpdateResult result = getCollection().updateOne(updateFilter, new BsonDocument("userName", value));
+        return result.wasAcknowledged();
+
+    }
+
+    @Override
+    public boolean DeleteUser(String userId) {
+        Bson deleteFilter = Filters.eq("_id", userId);
+        DeleteResult result = getCollection().deleteOne(deleteFilter);
+        return result.wasAcknowledged();
+    }
 
 
 }
