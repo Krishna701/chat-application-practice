@@ -6,5 +6,4 @@ public class AdminServices {
         System.out.println(username + " " + id);
         return username.equals("Krishna Rijal") && id.equals("hello123");
     }
-
 }

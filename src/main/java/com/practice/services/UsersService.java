@@ -26,4 +26,16 @@ public class UsersService {
     public String addUser(String userName){
         return userRepository.addUser(userName);
     }
+
+    public ArrayList<User> getAllUsersExcept(String myId) {
+        return userRepository.getAllUsersExcept(myId);
+    }
+
+    public boolean updateUser(String userId, String newUserName) {
+        return userRepository.UpdateUser(userId, newUserName);
+    }
+
+    public boolean deleteUser(String userId) {
+        return userRepository.DeleteUser(userId);
+    }
 }
